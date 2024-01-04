@@ -1,0 +1,52 @@
+README
+
+Overview:
+For my final project, I chose to code Pacman. I have many different classes in this project, including the pacmanGame
+class (which contains all the logical elements that control the game's timeline, the pacman movement, the ghost
+movement, the score, and the total lives remaining). I made separate classes for Ghosts, Dots, Energizers, and Pacman.
+In the Ghost class, I instantiate a rectangle called ghost. The class contains the ghostBFS and getNeighbor methods,
+key methods responsible for tracking the target's location and finding the shortest route to the pacman. Pacman's
+movement can be controlled using arrow key presses. As it moves across the map, it eats energizers and dots. This means
+that if the pacman circle collides with an energizer or a dot, they disappear graphically from the pane, and they also
+get removed from the arraylist of objects that are collidable (created in the smartSquare class). Dots, Energizers, and
+Ghosts all implement the interface Collidable, which contains one method called collide. Each of these three classes
+override this collide method and are modified slightly through scoreUpdates and fright modes. Finally, the pacmanGame
+class is responsible for creating the map for the start of the pacman game. This is done through a switch statement/for
+loop in the generateMap method that iterates through the 2D array maze of type smartSquare. At each location, with the
+help of the support map, the element is determined (either a wall, ghost, dot, energizer, or the pacman).
+
+
+Design Choices:
+In my smartSquare class, I created an ArrayList of that stored Collidable objects. I added a method in this class called
+collidables, which is responsible for adding collidables (passed in through the parameter) to the ArrayList of
+Collidable objects. Then, in my pacmanGame class, in the switch statement of my generateMap method, I implemented this
+collidables method from my smartSquare class. For Dots, Energizers, and Ghosts, I passed in the objects into the
+collidables method to add them to the ArrayList of Collidable objects. The same thing applies for the methods
+deleteCollidables and clear.
+
+Next, I created an interface called Collidable, which has one method called collide. Dots, Energizers, and Ghosts all
+implement this Collidable interface and override the method collide. Each collide method is slightly different, as the
+score update value passed in changes based on the object. In addition, when pacman collides with a ghost and the ghost
+is in fright mode, the ghost is added back to the pen and the score updates by 200. If the pacman collides with the
+ghost and the ghost is not in fright mode, the reset method is called where pacman goes back to its starting position
+and a life is lost.
+
+I decided to make an array of ghosts in my pacmanGame class instead of creating four rectangles in my ghost class. I
+made this design choice because I thought it would be easier to loop through the array of ghosts (using a for loop)
+to bring the ghosts to the front of the screen and to add each ghost object to the ArrayList of Collidable objects from
+the smartSquare class. In addition, I decided to generate the map in my pacmanGame class rather than create a
+separate class for the map/board because I didn't want to add too many classes for the project. This way, I hoped to
+minimize the number of bugs in my code and to simplify the project as a whole.
+
+Bells and whistles: pause and play using the P arrow key.
+
+Known Bugs:
+Sometimes the ghost and the pacman switch locations instead of colliding with each other. I tried to fix
+this bug through the gameUpdate() method that is called through the timeline (as described in the pacman handout/help
+slides) but the problem still occasionally occurs.
+
+Debugging Collaborators:
+None
+
+Hours Spent:
+I spent approximately 40 hours on this project in total.
